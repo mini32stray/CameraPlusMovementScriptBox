@@ -1,0 +1,18 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
+  "id": "CameraPlusMovementScriptBox",
+  "name": "CameraPlusMovementScriptBox",
+  "author": "kan8pachi,mini32stray",
+  "version": "0.1.1",
+  "description": "Provide the management box of the CameraPlus movement scripts.",
+  "gameVersion": "1.40.5",
+  "dependsOn": {
+    "BSIPA": "^4.3.5",
+    "SiraUtil": "^3.1.14",
+    "BeatSaberMarkupLanguage": "^1.12.5",
+    "SongCore": "^3.15.3",
+    "SongDetailsCache": "^1.4.0",
+    "BeatSaverSharp": "^3.4.5",
+    "CameraPlus": "^7.6.1"
+  }
+}

@@ -1,0 +1,5 @@
+<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='https://monkeymanboy.github.io/BSML-Docs/BSMLSchema.xsd'>
+	<settings-scroll-view child-control-width='true' child-control-height='true' child-expand-width='true' size-delta-y='0' pad-top='2'>
+		<toggle-setting value='enabled' text='Enabled' apply-on-change='true' bind-value='true' />
+	</settings-scroll-view>
+</bg>
