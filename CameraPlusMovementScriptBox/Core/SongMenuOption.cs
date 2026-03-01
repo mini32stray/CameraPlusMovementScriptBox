@@ -9,7 +9,7 @@ namespace CameraPlusMovementScriptBox.Core
 {
 	internal class SongMenuOption : BindableBase
 	{
-		private bool _active;
+		private bool _active = true;
 		public bool Active
 		{
 			get => _active;

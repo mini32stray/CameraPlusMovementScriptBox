@@ -190,6 +190,7 @@ namespace CameraPlusMovementScriptBox.View
 				ScriptsClear();
 				ScriptsAddRange(scriptsObj);
 
+				bool selected = false;
 				var lastPath = _FindLastSelectedScript(args.bsr, args.hash);
 				if (lastPath != null)
 				{
@@ -202,7 +203,18 @@ namespace CameraPlusMovementScriptBox.View
 						if (idx >= 0)
 						{
 							ScriptTable?.TableView?.SelectCellWithIdx(idx);
+							selected = true;
 						}
+					}
+				}
+				if (!selected)
+				{
+					// select the first one by default.
+					selectedScript = scriptsObj.FirstOrDefault()?.ScriptDef;
+					_ScriptSelectedUpdate();
+					if (selectedScript != null)
+					{
+						ScriptTable?.TableView?.SelectCellWithIdx(0);
 					}
 				}
 			}
