@@ -172,7 +172,6 @@ namespace CameraPlusMovementScriptBox.View
 
 			public void OnSongSelectionChanged(SongMenuEvent.SongSelectionEventArgs args)
 			{
-				logger?.Debug($"Song selection changed. BSR: {args.bsr}, Hash: {args.hash}");
 				var currentSong = (args.bsr, args.hash);
 				if (lastSong == currentSong)
 				{

@@ -3,7 +3,7 @@
   "id": "CameraPlusMovementScriptBox",
   "name": "CameraPlusMovementScriptBox",
   "author": "kan8pachi,mini32stray",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "description": "Provide the management box of the CameraPlus movement scripts.",
   "gameVersion": "1.40.5",
   "dependsOn": {

@@ -167,8 +167,27 @@ namespace CameraPlusMovementScriptBox.Core
 				return;
 			}
 
-			var files = Directory.GetFiles(BaseDirectoryPath, "*.json");
-			foreach (var file in files)
+			var dirs = Directory
+				.GetDirectories(BaseDirectoryPath)
+				.Select(d => (d, s: Path.GetFileName(d).StartsWith("_")))
+				.GroupBy(x => x.s)
+				.Select(x => (s: x.Key, ds: x.Select(t => t.d)));
+			var groupingDirs = dirs
+				.FirstOrDefault(g => g.s)
+				.ds
+				?? Enumerable.Empty<string>();
+			var nonGroupingDirs = dirs
+				.FirstOrDefault(g => !g.s)
+				.ds
+				?? Enumerable.Empty<string>();
+
+			var topFiles = Directory.GetFiles(BaseDirectoryPath, "*.json");
+			var subFiles = groupingDirs
+				.SelectMany(
+					d => Directory.GetFiles(d, "*.json")
+				);
+			var allFiles = topFiles.Concat(subFiles);
+			foreach (var file in allFiles)
 			{
 				var fileName = Path.GetFileName(file);
 				var def = directFileParser.Parse(file);
@@ -186,8 +205,12 @@ namespace CameraPlusMovementScriptBox.Core
 			}
 
 			loadedScriptsBySongHash.Clear();
-			var directories = Directory.GetDirectories(BaseDirectoryPath);
-			foreach (var dir in directories)
+			var subDirectroies = groupingDirs
+				.SelectMany(
+					d => Directory.GetDirectories(d)
+				);
+			var allDirectories = nonGroupingDirs.Concat(subDirectroies);
+			foreach (var dir in allDirectories)
 			{
 				var dirInfo = new DirectoryInfo(dir);
 				var infoFilePath = Path.Combine(dir, "info.json");
