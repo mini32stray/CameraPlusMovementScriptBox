@@ -29,6 +29,7 @@ namespace CameraPlusMovementScriptBox
 					container.BindInterfacesAndSelfTo<MovementScriptLoadingOperator>().AsSingle().NonLazy();
 					container.BindInterfacesAndSelfTo<SongMenuOption>().AsSingle();
 					container.BindInterfacesAndSelfTo<CameraPlusControllerPatch>().AsSingle().NonLazy();
+					container.BindInterfacesAndSelfTo<AdditionalInformation>().AsSingle().NonLazy();
 				}
 			});
 			zenjector.Install(Location.Menu, container =>

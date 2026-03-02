@@ -9,7 +9,6 @@ using IPA.Logging;
 using SiraUtil.Logging;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,7 +29,8 @@ namespace CameraPlusMovementScriptBox.View
 			SiraLog? logger,
 			SongMenuOption option,
 			SongMenuEvent songMenuEvent,
-			MovementScriptLoader loader)
+			MovementScriptLoader loader,
+			AdditionalInformation additionalInformation)
 		{
 			this.logger = logger;
 			this.songMenuEvent = songMenuEvent;
@@ -38,7 +38,8 @@ namespace CameraPlusMovementScriptBox.View
 			host = new(
 				logger?.Logger?.GetChildLogger("Host"),
 				option,
-				loader);
+				loader,
+				additionalInformation);
 			songMenuEvent.SongSelectionChanged += OnSongSelectionChanged;
 		}
 
@@ -94,6 +95,7 @@ namespace CameraPlusMovementScriptBox.View
 			private readonly Logger? logger;
 			private readonly SongMenuOption option;
 			private readonly MovementScriptLoader loader;
+			private readonly AdditionalInformation additional;
 
 			private (string? bsr, string? hash)? lastSong;
 			private readonly Dictionary<string, string> lastSelectedScriptMap = new();
@@ -101,12 +103,14 @@ namespace CameraPlusMovementScriptBox.View
 			public SongMenuHost(
 				Logger? logger,
 				SongMenuOption option,
-				MovementScriptLoader loader
+				MovementScriptLoader loader,
+				AdditionalInformation additional
 			)
 			{
 				this.logger = logger;
 				this.option = option;
 				this.loader = loader;
+				this.additional = additional;
 
 				ActionOnModelChanged();
 				option.PropertyChanged += ModelChanged;
@@ -127,7 +131,7 @@ namespace CameraPlusMovementScriptBox.View
 			public bool Active
 			{
 				get => active;
-				set => SetProperty(ref active, value, () => option.Active = value);
+				set => SetProperty(ref active, value, () => { option.Active = value; OnActiveChanged(); });
 			}
 
 			private string? scriptTitle;
@@ -169,6 +173,8 @@ namespace CameraPlusMovementScriptBox.View
 				get => description;
 				set => SetProperty(ref description, value);
 			}
+
+			private void OnActiveChanged() => _UpdateAdditionalText();
 
 			public void OnSongSelectionChanged(SongMenuEvent.SongSelectionEventArgs args)
 			{
@@ -267,7 +273,7 @@ namespace CameraPlusMovementScriptBox.View
 				else
 				{
 					Author = $"[{selectedScript?.Author}]";
-					ScriptTitle = string.IsNullOrEmpty(selectedScript?.Title) ? "No title" : selectedScript?.Title;
+					ScriptTitle = string.IsNullOrEmpty(selectedScript?.Title) ? "---" : selectedScript?.Title;
 					var fileType = selectedScript != null
 						? (selectedScript.IsDirectFile ? "File" : "Folder")
 						: null;
@@ -276,6 +282,7 @@ namespace CameraPlusMovementScriptBox.View
 				}
 
 				option.Selected = selectedScript;
+				_UpdateAdditionalText();
 			}
 
 			private void _UpdateLastSelectedScript()
@@ -292,6 +299,19 @@ namespace CameraPlusMovementScriptBox.View
 				}
 
 				lastSelectedScriptMap[key] = selectedScript.ScriptPath;
+			}
+
+			private void _UpdateAdditionalText()
+			{
+				string additionalText = string.Empty;
+				if (option.Active && option.Selected != null)
+				{
+					var author = string.IsNullOrWhiteSpace(selectedScript?.Author)
+						? "--"
+						: selectedScript?.Author;
+					additionalText = $"Camera Script by [{author}]";
+				}
+				additional.Interface?.SetCamScriptAuthor(additionalText);
 			}
 
 			private string? _FindLastSelectedScript(string? bsr, string? hash)
