@@ -34,7 +34,7 @@ namespace CameraPlusMovementScriptBox.Core
 				{
 					return null;
 				}
-				var title = GetGroup(match, "title", true) ?? "No title";
+				var title = GetGroup(match, "title", true) ?? string.Empty;
 				var bsr = (GetGroup(match, "bsr", false) ?? "0").ToLower();
 				var author = GetGroup(match, "author", true);
 				return new(
@@ -95,7 +95,7 @@ namespace CameraPlusMovementScriptBox.Core
 					return null;
 				}
 
-				var title = info.Title ?? "No title";
+				var title = info.Title ?? string.Empty;
 				var bsr = string.IsNullOrEmpty(info.Bsr) ? null : info.Bsr!.Trim();
 				var songHash = string.IsNullOrEmpty(info.SongHash) ? null : info.SongHash!.Trim();
 				if (bsr == null && songHash == null)

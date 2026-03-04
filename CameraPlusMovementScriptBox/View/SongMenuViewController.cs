@@ -72,7 +72,7 @@ namespace CameraPlusMovementScriptBox.View
 			{
 				get
 				{
-					var title = string.IsNullOrEmpty(ScriptDef?.Title) ? "No title" : ScriptDef!.Title;
+					var title = string.IsNullOrEmpty(ScriptDef?.Title) ? "(---)" : ScriptDef!.Title;
 					return $"[{ScriptDef?.Author}] {title}";
 				}
 			}
@@ -150,12 +150,12 @@ namespace CameraPlusMovementScriptBox.View
 				set => SetProperty(ref baseInfo, value);
 			}
 
-			private string? author;
-			[UIValue("author")]
-			public string? Author
+			private string? scriptAuthor;
+			[UIValue("script-author")]
+			public string? ScriptAuthor
 			{
-				get => author;
-				set => SetProperty(ref author, value);
+				get => scriptAuthor;
+				set => SetProperty(ref scriptAuthor, value);
 			}
 
 			private string? fileType;
@@ -265,15 +265,15 @@ namespace CameraPlusMovementScriptBox.View
 			{
 				if (selectedScript == null)
 				{
-					Author = null;
+					ScriptAuthor = null;
 					ScriptTitle = null;
 					BaseInfo = null;
 					Description = null;
 				}
 				else
 				{
-					Author = $"[{selectedScript?.Author}]";
-					ScriptTitle = string.IsNullOrEmpty(selectedScript?.Title) ? "---" : selectedScript?.Title;
+					ScriptAuthor = $"[{selectedScript?.Author}]";
+					ScriptTitle = string.IsNullOrEmpty(selectedScript?.Title) ? "(---)" : selectedScript?.Title;
 					var fileType = selectedScript != null
 						? (selectedScript.IsDirectFile ? "File" : "Folder")
 						: null;
