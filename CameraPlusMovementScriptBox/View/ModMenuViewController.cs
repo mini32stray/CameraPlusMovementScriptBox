@@ -1,13 +1,14 @@
 ﻿using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Settings;
+using CameraPlusMovementScriptBox.Configuration;
+using CameraPlusMovementScriptBox.Core;
+using CameraPlusMovementScriptBox.Core.ComponentModel;
 using SiraUtil.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CameraPlusMovementScriptBox.Configuration;
-using CameraPlusMovementScriptBox.Core.ComponentModel;
 using Zenject;
 
 namespace CameraPlusMovementScriptBox.View
@@ -18,6 +19,7 @@ namespace CameraPlusMovementScriptBox.View
 		{
 			private readonly SiraLog? logger;
 			private readonly PluginConfig config;
+			private readonly PlaylistCreator? playlistCreator;
 
 			private bool _Enabled;
 			[UIValue("enabled")]
@@ -27,6 +29,48 @@ namespace CameraPlusMovementScriptBox.View
 				set => SetProperty(ref _Enabled, value, () => config.Enabled = value);
 			}
 
+			[UIAction("generate-playlist")]
+			public void GeneratePlaylist()
+			{
+				if (playlistCreator == null)
+				{
+					return;
+				}
+
+				GenerateStatus = "Generating playlist...";
+				Action func = async () =>
+				{
+					try
+					{
+						await playlistCreator.CreateOrUpdate();
+						GenerateStatus = "Playlist generated.";
+					}
+					catch (Exception ex)
+					{
+						logger?.Error("Failed to generate playlist.");
+						logger?.Error(ex);
+						GenerateStatus = $"Failed to generate playlist: {ex.Message}";
+					}
+				};
+				func();
+			}
+
+			private string _GenerateStatus = string.Empty;
+			[UIValue("generate-status")]
+			public string GenerateStatus
+			{
+				get => _GenerateStatus;
+				set => SetProperty(ref _GenerateStatus, value);
+			}
+
+			private bool _GeneratePlaylistEnabled;
+			[UIValue("generate-playlist-enabled")]
+			public bool GeneratePlaylistEnabled
+			{
+				get => _GeneratePlaylistEnabled;
+				set => SetProperty(ref _GeneratePlaylistEnabled, value);
+			}
+
 			public override void ActionOnModelChanged()
             {
 				Enabled = config.Enabled;
@@ -34,11 +78,17 @@ namespace CameraPlusMovementScriptBox.View
 
 			public MenuHost(
 				SiraLog? logger,
-				PluginConfig config)
+				PluginConfig config,
+				PlaylistCreator? playlistCreator)
 			{
 				this.logger = logger;
 				this.config = config;
+				this.playlistCreator = playlistCreator;
 				ActionOnModelChanged();
+				if (playlistCreator != null)
+				{
+					GeneratePlaylistEnabled = true;
+				}
 			}
 		}
 
@@ -50,11 +100,12 @@ namespace CameraPlusMovementScriptBox.View
 
 		public ModMenuViewController(
 			SiraLog? logger,
-			PluginConfig config)
+			PluginConfig config,
+			[InjectOptional]PlaylistCreator? playlistCreator)
 		{
 			this.logger = logger;
 			this.config = config;
-			host = new(logger, config);
+			host = new(logger, config, playlistCreator);
 			config.Reloaded += host.ModelChanged;
 		}
 

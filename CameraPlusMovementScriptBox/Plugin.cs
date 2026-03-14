@@ -30,11 +30,12 @@ namespace CameraPlusMovementScriptBox
 					container.BindInterfacesAndSelfTo<SongMenuOption>().AsSingle();
 					container.BindInterfacesAndSelfTo<CameraPlusControllerPatch>().AsSingle().NonLazy();
 					container.BindInterfacesAndSelfTo<AdditionalInformation>().AsSingle().NonLazy();
+					container.BindInterfacesAndSelfTo<PlaylistCreator>().AsSingle();
 				}
 			});
 			zenjector.Install(Location.Menu, container =>
 			{
-				container.BindInterfacesTo<ModMenuViewController>().AsSingle();
+				container.BindInterfacesTo<ModMenuViewController>().AsSingle().NonLazy();
 				if (pluginConfig.Enabled)
 				{
 					container.BindInterfacesTo<SongMenuViewController>().AsSingle();

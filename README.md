@@ -4,6 +4,8 @@ CameraPlusの動作を勝手に変更するMOD。CameraPlus用のMovement Script
 - 曲ごとのカメラスクリプトは、本来は曲フォルダに入れる必要がありますが、このMODでは専用のフォルダに入れます。
 - 曲ごとのカメラスクリプトは、本来は一度入れたら毎回必ず実行される仕様ですが、このMODではスクリプトの実行の有無を選択できます。
 - 曲ごとのカメラスクリプトは、本来は複数入れることはできませんが、このMODでは複数のスクリプト候補から選べます。
+- 実行中のカメラスクリプトの作者を、パネル (`StandaloneBeatmapInformation`) に表示できます。 (v0.3.1以降)
+- このMODで入れているカメラスクリプトの対象マップを抽出し、プレイリスト化できます。 (v0.4.1以降)
 
 ## 注意
 かめぷらに勝手にパッチを当てます。すのーさんには内緒だよ☆
@@ -16,6 +18,7 @@ CameraPlusの動作を勝手に変更するMOD。CameraPlus用のMovement Script
 特に以下のMODはよく確認しましょう。
 - CameraPlus
 - SongDetailsCache
+- BeatSaberPlaylistsLib
 
 ## インストール
 `CameraPlusMovementScriptBox.dll` を `Plugins` フォルダに置くだけ。
@@ -32,6 +35,16 @@ CameraPlusの動作を勝手に変更するMOD。CameraPlus用のMovement Script
   - 使いたいスクリプトを選択する(③)
   
   ![overview](docs/overview.png)
+
+- カメラスクリプトがあるマップをプレイリスト化するには `MOD Settings` 画面の `CamScript Box` のページを開き、その中にある `Generate` ボタンを押してください。
+  プレイリストは `CameraScriptBox` という名前で作成されます。既に同じ名前のプレイリストがある場合は、完全に上書きされます。
+  
+  - プレイリスト化されるのは、本MODでカメラスクリプトを導入したマップだけです。ローカルに存在しないマップも含まれます。
+  - プレイリスト化されるのは、bsrが指定されているマップだけです。
+  - (Optional) プレイリストはサブフォルダ内に出力できますが、有効にするには設定ファイルに直接記載する必要があります。
+    `UserData\CameraPlusMovementScriptBox.json` の `PlaylistSubdirectoryName` という項目にサブフォルダ名を記載してください。空文字列に戻せば、サブフォルダを使わなくなります。
+  
+  ![generate](docs/generate.jpg)
 
 ## ファイル名のルール
 以下の2方式のうち、好きなほうを使ってね。1.のほうが簡単なのでおすすめ。混在してもいいよ。

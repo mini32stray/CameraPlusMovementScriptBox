@@ -40,6 +40,7 @@
     <None Remove="Properties\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Cover256.png" />
     <None Remove="View\ModMenu.bsml" />
     <None Remove="View\RequestList.bsml" />
   </ItemGroup>
@@ -142,6 +143,10 @@
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\DataModels.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="BeatSaberPlaylistsLib">
+      <HintPath>$(BeatSaberDir)\Libs\BeatSaberPlaylistsLib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="BeatSaverSharp">
       <HintPath>$(BeatSaberDir)\Libs\BeatSaverSharp.dll</HintPath>
       <Private>False</Private>
@@ -156,6 +161,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Cover256.png" />
     <EmbeddedResource Include="manifest.json" />
     <EmbeddedResource Include="View\ModMenu.bsml" />
     <EmbeddedResource Include="View\SongMenu.bsml" />

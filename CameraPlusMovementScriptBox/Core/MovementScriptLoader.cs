@@ -257,5 +257,10 @@ namespace CameraPlusMovementScriptBox.Core
 			}
 			return loadedScriptsBySongHash.GetValues(songHash);
 		}
+
+		public IEnumerable<MovementScriptDef> GetAllScripts()
+		{
+			return loadedScriptsByBsr.Values;
+		}
 	}
 }

@@ -12,10 +12,12 @@ namespace CameraPlusMovementScriptBox.Configuration
 		
         public virtual bool Enabled { get; set; } = true;
 
-        /// <summary>
-        /// This is called whenever BSIPA reads the config from disk (including when file changes are detected).
-        /// </summary>
-        public virtual void OnReload()
+        public virtual string PlaylistSubdirectoryName { get; set; } = string.Empty;
+
+		/// <summary>
+		/// This is called whenever BSIPA reads the config from disk (including when file changes are detected).
+		/// </summary>
+		public virtual void OnReload()
         {
             Reloaded?.Invoke();
 		}

@@ -3,7 +3,7 @@
   "id": "CameraPlusMovementScriptBox",
   "name": "CameraPlusMovementScriptBox",
   "author": "kan8pachi,mini32stray",
-  "version": "0.3.2",
+  "version": "0.4.1",
   "description": "Provide the management box of the CameraPlus movement scripts.",
   "gameVersion": "1.40.5",
   "dependsOn": {
@@ -13,6 +13,7 @@
     "SongCore": "^3.15.3",
     "SongDetailsCache": "^1.4.0",
     "BeatSaverSharp": "^3.4.5",
+    "BeatSaberPlaylistsLib": "^1.7.2",
     "CameraPlus": "^7.6.1"
   }
 }
