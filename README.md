@@ -36,15 +36,7 @@ CameraPlusの動作を勝手に変更するMOD。CameraPlus用のMovement Script
   
   ![overview](docs/overview.png)
 
-- カメラスクリプトがあるマップをプレイリスト化するには `MOD Settings` 画面の `CamScript Box` のページを開き、その中にある `Generate` ボタンを押してください。
-  プレイリストは `CameraScriptBox` という名前で作成されます。既に同じ名前のプレイリストがある場合は、完全に上書きされます。
-  
-  - プレイリスト化されるのは、本MODでカメラスクリプトを導入したマップだけです。マップ自体はローカルに存在しなくても大丈夫です。
-  - プレイリスト化されるのは、bsrが指定されているマップだけです。
-  - (Optional) プレイリストはサブフォルダ内に出力できますが、有効にするには設定ファイルに直接記載する必要があります。
-    `UserData\CameraPlusMovementScriptBox.json` の `PlaylistSubdirectoryName` という項目にサブフォルダ名を記載してください。空文字列に戻せば、サブフォルダを使わなくなります。
-  
-  ![generate](docs/generate.jpg)
+- プレイリストを作る方法は、後述します。
 
 ## ファイル名のルール
 以下の2方式のうち、好きなほうを使ってね。1.のほうが簡単なのでおすすめ。混在してもいいよ。
@@ -104,3 +96,20 @@ CameraPlusの動作を勝手に変更するMOD。CameraPlus用のMovement Script
 
       ↑直接(*1)でもサブフォルダ内(*2)でも大丈夫です。
   ```
+
+## 使い方(プレイリスト)
+カメラスクリプトが入ったマップをプレイリスト化できます。
+- プレイリストを作成するには、 `MOD Settings` 画面の `CamScript Box` のページを開き、その中にある `Generate` ボタンを押してください。
+
+  ![generate](docs/generate.jpg)
+
+- プレイリストは `CameraScriptBox` という名前で作成されます。既に同じ名前のプレイリストがある場合は、完全に上書きされます。
+- プレイリストのカバー画像はこれになります → <img src="CameraPlusMovementScriptBox/Cover256.png" alt="プレイリストのアイコン" width="48px">
+
+- 以下の注意点に気を付けてね。
+  - プレイリスト化されるのは、本MODでカメラスクリプトを導入したマップだけです。マップ自体はローカルに存在しなくても大丈夫です。
+  - プレイリスト化されるのは、bsrが指定されているマップだけです。
+  - (Optional) プレイリストはサブフォルダ内に出力できますが、有効にするには設定ファイルに直接記載する必要があります。
+    `UserData\CameraPlusMovementScriptBox.json` の `PlaylistSubdirectoryName` という項目にサブフォルダ名を記載してください。空文字列に戻せば、サブフォルダを使わなくなります。
+  
+
